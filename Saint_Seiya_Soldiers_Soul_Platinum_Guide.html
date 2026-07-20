@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saint Seiya : Soldiers' Soul — Guide du platine</title>
+<meta name="description" content="Guide complet et testé du trophée platine de Saint Seiya : Soldiers' Soul. Ordre optimal, pièges non documentés, builds de répliques et méthode de farm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#070813;
+  --deep:#0d1024;
+  --panel:#121631;
+  --panel-2:#171c3d;
+  --gold:#d9ab4e;
+  --gold-bright:#f4dc9a;
+  --bronze:#b8703f;
+  --silver:#9fb3d1;
+  --ink:#e6e9f7;
+  --ink-dim:#a4abc8;
+  --ink-faint:#727AA0;
+  --line:rgba(217,171,78,.22);
+  --line-soft:rgba(159,179,209,.14);
+  --danger:#e0674f;
+  --ok:#5fbf9b;
+  --maxw:940px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--ink);
+  font-family:Inter,system-ui,sans-serif;
+  font-weight:300;
+  font-size:17px;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- décor cosmique (CSS pur) ---------- */
+.sky{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+  radial-gradient(ellipse 70% 50% at 50% -10%, #23204f 0%, transparent 60%),
+  radial-gradient(ellipse 60% 40% at 85% 15%, #2a1a3d 0%, transparent 55%),
+  radial-gradient(ellipse 80% 60% at 10% 80%, #101b3a 0%, transparent 60%),
+  var(--void);}
+.stars{position:absolute;inset:-50%;
+  background-image:
+    radial-gradient(1.4px 1.4px at 20% 30%, #fff 50%, transparent),
+    radial-gradient(1px 1px at 70% 12%, #cfe0ff 50%, transparent),
+    radial-gradient(1.6px 1.6px at 43% 71%, #fff 50%, transparent),
+    radial-gradient(1px 1px at 88% 62%, #ffe9c0 50%, transparent),
+    radial-gradient(1.2px 1.2px at 12% 88%, #fff 50%, transparent),
+    radial-gradient(1px 1px at 60% 45%, #b9c9ff 50%, transparent),
+    radial-gradient(1.3px 1.3px at 33% 8%, #fff 50%, transparent),
+    radial-gradient(1px 1px at 95% 35%, #fff 50%, transparent);
+  background-size:340px 340px,270px 270px,410px 410px,300px 300px,380px 380px,240px 240px,460px 460px,320px 320px;
+  opacity:.55;animation:drift 240s linear infinite;}
+@keyframes drift{to{transform:translate(-120px,-90px)}}
+.nebula{position:absolute;top:-20vh;left:50%;width:120vw;height:90vh;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(120,90,220,.18) 0%, rgba(40,30,90,.08) 40%, transparent 70%);
+  filter:blur(30px);}
+
+/* roue du zodiaque en filigrane */
+.wheel{position:fixed;z-index:-1;top:8vh;left:50%;translate:-50% 0;width:min(78vmin,720px);aspect-ratio:1;
+  opacity:.13;pointer-events:none;animation:spin 300s linear infinite;}
+@keyframes spin{to{rotate:360deg}}
+.wheel svg{width:100%;height:100%}
+
+/* ---------- typographie ---------- */
+h1,h2,h3,.disp{font-family:Cinzel,Georgia,serif;font-weight:700;letter-spacing:.02em;line-height:1.2}
+p{margin:0 0 1.1em}
+a{color:var(--gold-bright);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{border-bottom-color:var(--gold)}
+strong{font-weight:600;color:#fff}
+em{font-style:normal;color:var(--gold-bright)}
+code,.mono{font-family:"IBM Plex Mono",monospace;font-size:.88em}
+
+/* ---------- hero ---------- */
+.hero{max-width:var(--maxw);margin:0 auto;padding:16vh 24px 9vh;text-align:center;position:relative}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.hero h1{font-size:clamp(34px,6.4vw,66px);margin:0 0 6px;
+  background:linear-gradient(180deg,#fff8e2 0%,var(--gold-bright) 45%,#c08a2e 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 60px rgba(217,171,78,.25)}
+.hero .sub{font-family:Cinzel,serif;font-weight:500;font-size:clamp(15px,2.4vw,20px);color:var(--silver);letter-spacing:.16em;text-transform:uppercase;margin-bottom:34px}
+.hero p.lede{max-width:620px;margin:0 auto 38px;color:var(--ink-dim);font-size:18px}
+.stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;max-width:640px;margin:0 auto}
+.stat{flex:1 1 130px;padding:4px 14px}
+.stat b{display:block;font-family:"IBM Plex Mono",monospace;font-size:26px;color:var(--gold-bright);font-weight:500}
+.stat span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+
+/* ---------- sommaire ---------- */
+.toc{max-width:var(--maxw);margin:0 auto 10vh;padding:0 24px}
+.toc ol{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:14px;align-items:baseline;padding:11px 16px;border-bottom:none;background:rgba(18,22,49,.5);
+  border:1px solid transparent;border-radius:3px;color:var(--ink-dim);font-size:15px;transition:.18s}
+.toc a:hover{background:var(--panel-2);border-color:var(--line);color:var(--ink)}
+.toc a::before{content:counter(t,decimal-leading-zero);font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);flex:none}
+
+/* ---------- sections ---------- */
+main{max-width:var(--maxw);margin:0 auto;padding:0 24px 14vh}
+section{margin:0 0 8vh;scroll-margin-top:24px}
+.shead{display:flex;align-items:center;gap:16px;margin-bottom:8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.glyph{font-size:30px;color:var(--gold);line-height:1;flex:none;opacity:.9}
+.shead h2{font-size:clamp(22px,3.6vw,30px);margin:0;color:#fff}
+.shead .num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-faint);letter-spacing:.2em;margin-left:auto;flex:none}
+.intro{color:var(--ink-dim);margin-bottom:26px}
+
+.card{background:linear-gradient(180deg,rgba(23,28,61,.72),rgba(18,22,49,.72));
+  border:1px solid var(--line-soft);border-radius:4px;padding:22px 26px;margin:0 0 22px;backdrop-filter:blur(6px)}
+.card h3{font-size:17px;margin:0 0 12px;color:var(--gold-bright);letter-spacing:.04em}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+
+.warn{border-left:3px solid var(--danger);background:linear-gradient(90deg,rgba(224,103,79,.09),rgba(23,28,61,.6))}
+.warn h3{color:#f0937d}
+.tip{border-left:3px solid var(--ok);background:linear-gradient(90deg,rgba(95,191,155,.08),rgba(23,28,61,.6))}
+.tip h3{color:#7fd3b4}
+.find{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(217,171,78,.09),rgba(23,28,61,.6))}
+
+ul,ol.steps{margin:0 0 1.1em;padding-left:1.3em}
+li{margin-bottom:.5em}
+li::marker{color:var(--gold)}
+
+table{width:100%;border-collapse:collapse;margin:0 0 22px;font-size:15px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500}
+td.mono{color:var(--gold-bright)}
+tbody tr:hover{background:rgba(217,171,78,.04)}
+
+/* ---------- checklist Big Bang ---------- */
+.bbctl{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px;font-size:14px;color:var(--ink-dim)}
+.bbctl b{font-family:"IBM Plex Mono",monospace;font-size:22px;color:var(--gold-bright);font-weight:500}
+button{font-family:Inter,sans-serif;font-size:13px;color:var(--ink-dim);background:var(--panel-2);
+  border:1px solid var(--line-soft);border-radius:3px;padding:7px 14px;cursor:pointer;transition:.15s}
+button:hover{border-color:var(--gold);color:var(--gold-bright)}
+.bbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
+.pers{background:rgba(18,22,49,.6);border:1px solid var(--line-soft);border-radius:4px;padding:12px 14px}
+.pers .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:8px}
+.pers .ph b{font-family:Cinzel,serif;font-size:14.5px;font-weight:700;color:#fff}
+.pers .ph i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:10.5px;padding:2px 8px;border-radius:9px;
+  background:rgba(217,171,78,.13);color:var(--gold);white-space:nowrap}
+.pers .ph i.done{background:rgba(95,191,155,.15);color:var(--ok)}
+.pers label{display:flex;gap:9px;align-items:flex-start;font-size:14px;padding:2px 0;cursor:pointer;color:var(--ink-dim)}
+.pers label:hover{color:var(--ink)}
+.pers input{accent-color:var(--gold);margin-top:5px;flex:none}
+.pers input:checked+span{text-decoration:line-through;color:var(--ink-faint)}
+.note{font-size:14px;color:var(--ink-faint);font-style:italic}
+
+footer{border-top:1px solid var(--line);max-width:var(--maxw);margin:0 auto;padding:34px 24px 60px;
+  color:var(--ink-faint);font-size:14px;text-align:center}
+footer .zsign{color:var(--gold);letter-spacing:.5em;font-size:15px;margin-bottom:14px;opacity:.7}
+
+::selection{background:rgba(217,171,78,.3);color:#fff}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:640px){
+  body{font-size:16px}
+  .hero{padding:11vh 20px 7vh}
+  .card{padding:18px 18px}
+  .shead .num{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+<div class="wheel" aria-hidden="true">
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#d9ab4e" stroke-width="1">
+    <circle cx="200" cy="200" r="196"/><circle cx="200" cy="200" r="168"/>
+    <circle cx="200" cy="200" r="120"/><circle cx="200" cy="200" r="92"/><circle cx="200" cy="200" r="34"/>
+  </g>
+  <g stroke="#d9ab4e" stroke-width="1" opacity=".7">
+    <path d="M200 4 L200 396 M4 200 L396 200"/>
+    <path d="M62 62 L338 338 M338 62 L62 338"/>
+    <path d="M200 32 L302 90 L302 206 L200 264 L98 206 L98 90 Z"/>
+  </g>
+  <g fill="#d9ab4e" font-family="serif" font-size="19" text-anchor="middle">
+    <text x="200" y="28">♈</text><text x="298" y="82">♉</text><text x="352" y="150">♊</text>
+    <text x="352" y="262">♋</text><text x="298" y="330">♌</text><text x="200" y="384">♍</text>
+    <text x="102" y="330">♎</text><text x="48" y="262">♏</text><text x="48" y="150">♐</text>
+    <text x="102" y="82">♑</text><text x="152" y="46">♒</text><text x="248" y="46">♓</text>
+  </g>
+</svg>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">PlayStation 3 · PS4 · PC · RPCS3</div>
+  <h1>Ultimate Soldiers' Soul</h1>
+  <div class="sub">Le guide du platine, vérifié manette en main</div>
+  <p class="lede">Saint Seiya : Soldiers' Soul n'est pas un platine difficile. C'est un platine <em>piégeux</em> : trois trophées se débloquent par des conditions que le jeu n'explique jamais, et un quatrième repose sur une mécanique de farm que les guides existants décrivent de travers. Voici la route complète, dans l'ordre, sans détour inutile.</p>
+  <div class="stats">
+    <div class="stat"><b>26 h</b><span>temps réel constaté</span></div>
+    <div class="stat"><b>50</b><span>trophées</span></div>
+    <div class="stat"><b>179</b><span>répliques à réunir</span></div>
+    <div class="stat"><b>3</b><span>pièges majeurs</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sommaire">
+  <ol>
+    <li><a href="#ordre">Pourquoi cet ordre</a></li>
+    <li><a href="#didacticiel">Terminer le didacticiel</a></li>
+    <li><a href="#legende">Légende du Cosmos en S</a></li>
+    <li><a href="#survie">Mode Survie</a></li>
+    <li><a href="#tournoi">Guerre Galactique</a></li>
+    <li><a href="#boutique1">Premier passage boutique</a></li>
+    <li><a href="#builds">Builds de répliques</a></li>
+    <li><a href="#bataille">Bataille d'Or en S</a></li>
+    <li><a href="#another">Another : farm des répliques</a></li>
+    <li><a href="#boutique2">Vider la boutique</a></li>
+    <li><a href="#bigbang">Les attaques Big Bang</a></li>
+    <li><a href="#checklist">Checklist Big Bang</a></li>
+    <li><a href="#points">Manque de points ?</a></li>
+    <li><a href="#recap">Récapitulatif des pièges</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="ordre">
+  <div class="shead"><span class="glyph">♈</span><h2>Pourquoi cet ordre</h2><span class="num">ÉTAPE 01</span></div>
+  <p class="intro">L'ordre n'est pas cosmétique : chaque étape finance ou débloque la suivante. Faire la Bataille d'Or avant d'avoir acheté vos répliques de dégâts, c'est farmer deux fois plus lentement. Acheter la boutique en entier trop tôt, c'est se retrouver sans points quand il en faut vraiment.</p>
+  <div class="card">
+    <h3>La logique en une phrase</h3>
+    <p>On débloque d'abord tout le contenu (didacticiel, histoire, modes annexes), on achète <strong>uniquement l'équipement utile au farm</strong>, on farme la Bataille d'Or qui rapporte à la fois les répliques manquantes et une montagne de points, puis on vide la boutique avec cet argent, et on termine par les attaques Big Bang — la seule étape qui exige d'avoir tous les personnages et tous les costumes en main.</p>
+  </div>
+  <div class="card warn">
+    <h3>Ne surtout pas commencer par le farm</h3>
+    <p>Le réflexe naturel est de foncer sur la Bataille d'Or dès qu'elle s'ouvre. C'est l'erreur qui coûte le plus d'heures : sans les répliques de dégâts, chaque combat dure deux à trois fois plus longtemps, et vous multipliez ça par les centaines de combats du farm.</p>
+  </div>
+</section>
+
+<section id="didacticiel">
+  <div class="shead"><span class="glyph">♉</span><h2>Terminer le didacticiel — en entier</h2><span class="num">ÉTAPE 02</span></div>
+  <p class="intro">C'est le piège le plus vicieux du jeu, et il bloque trois trophées d'un coup. Cinq minutes ici vous évitent des heures de recherche plus tard.</p>
+  <div class="card warn">
+    <h3>Le piège</h3>
+    <p>Le trophée <em>La connaissance d'un chevalier</em> se valide dès que vous <strong>lancez</strong> le didacticiel. Le jeu vous laisse donc croire que le mode est plié. Sauf que les <strong>tenues d'entraînement de Seiya et de Marine</strong> ne se débloquent qu'en terminant <strong>toutes les leçons</strong>, basiques et avancées, jusqu'à la dernière.</p>
+    <p>Tant que ce n'est pas fait, deux lignes restent affichées <code>?????</code> dans la boutique, ce qui verrouille en cascade : <em>Jeunesse éternelle ! Les chevaliers de Bronze</em>, <em>Héros du Sanctuaire ! Les chevaliers d'Argent</em>, la collection à 100 %, et donc le platine.</p>
+  </div>
+  <p>Symptôme typique : vous avez fini l'histoire à 100 %, tous vos compteurs sont pleins, et il vous reste malgré tout deux <code>?????</code> inexplicables en boutique. C'est ça. Retournez finir vos leçons, les deux tenues apparaissent immédiatement à l'achat.</p>
+  <p class="note">Repère de contrôle : dans les données du joueur, la ligne « Costumes obtenus » doit finir à 144 / 144 et « Personnages débloqués » à 72 / 72.</p>
+</section>
+
+<section id="legende">
+  <div class="shead"><span class="glyph">♊</span><h2>Légende du Cosmos, rang S partout</h2><span class="num">ÉTAPE 03</span></div>
+  <p class="intro">Les quatre arcs — Sanctuaire, Asgard, Poséidon, Hadès — constituent le gros du contenu. Faites-les en visant le rang S dès le premier passage : le rang conditionne le déblocage des costumes cachés, et repasser derrière est plus long que bien faire du premier coup.</p>
+  <div class="card">
+    <h3>Obtenir le rang S sans forcer</h3>
+    <ul>
+      <li><strong>Finissez vite.</strong> Le temps de combat pèse lourd dans la note. Un adversaire tué en trente secondes compense beaucoup d'imperfections.</li>
+      <li><strong>Encaissez peu.</strong> Les dégâts subis font chuter le rang plus que le nombre de coups portés ne le fait monter.</li>
+      <li><strong>Terminez par une Big Bang.</strong> Elle gonfle le score final, et vous validez au passage la vidéo correspondante — voir l'étape 11, autant prendre de l'avance.</li>
+    </ul>
+  </div>
+  <div class="card tip">
+    <h3>Les défis de chapitre</h3>
+    <p>Chaque combat propose des conditions annexes (finir avec une attaque précise, ne pas être touché, utiliser tel personnage…). <strong>Faites-les au fur et à mesure</strong> : elles rapportent des répliques d'assistance et des points, et y revenir en fin de parcours signifie relancer des chapitres entiers pour une ligne oubliée.</p>
+    <p>Repérez aussi tout de suite les trophées qui imposent un personnage précis — Mu contre Deathmask, Kaasa contre les Bronzes, Siegfried contre les Marinas, Rhadamanthe contre Orphée… Vous pouvez presque tous les caser naturellement pendant l'histoire ou en Combat Libre au lieu d'en faire une corvée séparée.</p>
+  </div>
+</section>
+
+<section id="survie">
+  <div class="shead"><span class="glyph">♋</span><h2>Mode Survie</h2><span class="num">ÉTAPE 04</span></div>
+  <p class="intro">Rapide et sans piège, à faire juste après l'histoire pendant que vous maîtrisez encore le timing des parades.</p>
+  <div class="card">
+    <h3>Deux personnages imposés</h3>
+    <p>Deux trophées demandent de boucler une Survie avec <strong>Jabu</strong> et avec <strong>Ichi</strong>, la classe utilisée n'ayant aucune importance. Ce sont deux personnages faibles : jouez la patience, laissez venir, punissez à la parade plutôt que d'ouvrir. La récupération de vie entre les manches étant limitée, mieux vaut finir une manche lentement mais intact que vite et à moitié mort.</p>
+  </div>
+</section>
+
+<section id="tournoi">
+  <div class="shead"><span class="glyph">♌</span><h2>Guerre Galactique : le tournoi</h2><span class="num">ÉTAPE 05</span></div>
+  <p class="intro">Les trois coupes — Or, Légende, Dieu — sont la partie la plus longue et la plus exigeante des modes annexes. La coupe Dieu peut vraiment poser problème si vous prenez le mauvais personnage.</p>
+  <div class="card find">
+    <h3>Jouez Hadès</h3>
+    <p>Le meilleur choix pour le tournoi, et pour une raison mécanique précise : <strong>Hadès frappe directement au carré sans avoir besoin de dasher</strong>. Chez la plupart des personnages, engager coûte un dash, donc du cosmos ; et si vous êtes touché pendant ce dash, vous perdez à la fois la ressource et le tempo. Hadès supprime ce coût : vous gardez votre cosmos pour les parades et les attaques puissantes, ce qui rend chaque échange nettement plus sûr.</p>
+    <p>À défaut, <strong>privilégiez les personnages qui soignent</strong> : dans un tournoi enchaîné, la vie conservée d'un combat à l'autre vaut plus que le pic de dégâts.</p>
+  </div>
+  <div class="card">
+    <h3>Tenir la distance</h3>
+    <ul>
+      <li>Le tournoi s'enchaîne sans pause réelle : jouez pour votre barre de vie autant que pour la victoire.</li>
+      <li>Contre l'IA agressive de la coupe Dieu, la parade suivie d'une attaque puissante est plus fiable que le combo au sol, souvent interrompu.</li>
+      <li>Gardez vos Big Bang pour finir : une manche close net évite un retournement bête en fin de combat.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="boutique1">
+  <div class="shead"><span class="glyph">♍</span><h2>Premier passage en boutique</h2><span class="num">ÉTAPE 06</span></div>
+  <p class="intro">À ce stade, tout le contenu du jeu est débloqué. On achète maintenant ce qui sert à jouer — pas encore ce qui sert à compléter la collection.</p>
+  <div class="card">
+    <h3>Ce qu'on prend maintenant</h3>
+    <p>Les <strong>personnages et les costumes</strong>, parce qu'ils sont indispensables à l'étape des attaques Big Bang et qu'il vaut mieux vérifier tout de suite qu'aucun <code>?????</code> ne traîne. Et les <strong>répliques d'assistance offensives</strong> détaillées à l'étape suivante, qui vont diviser par deux la durée de votre farm.</p>
+  </div>
+  <div class="card tip">
+    <h3>Ce qu'on garde pour plus tard</h3>
+    <p>Vidéos, musiques, cinématiques, illustrations : aucune urgence. <strong>Inutile de farmer les points maintenant</strong> — la Bataille d'Or que vous êtes sur le point de commencer en rapporte des centaines de milliers. Vous reviendrez tout acheter d'un coup, sans y penser.</p>
+  </div>
+</section>
+
+<section id="builds">
+  <div class="shead"><span class="glyph">♎</span><h2>Builds de répliques pour la Bataille d'Or</h2><span class="num">ÉTAPE 07</span></div>
+  <p class="intro">C'est l'investissement le plus rentable du platine. Les répliques d'assistance occupent des emplacements limités : tout l'enjeu est de convertir chaque emplacement en temps de combat gagné.</p>
+
+  <div class="card find">
+    <h3>Build « farm tranquille » — recommandé</h3>
+    <table>
+      <thead><tr><th>Réplique</th><th>Coût</th></tr></thead>
+      <tbody>
+        <tr><td>Dégâts +30 %</td><td class="mono">4 emplacements</td></tr>
+        <tr><td>Dégâts des attaques puissantes +20 %</td><td class="mono">2 emplacements</td></tr>
+        <tr><td>Rechargement du cosmos facilité (M)</td><td class="mono">2 emplacements</td></tr>
+      </tbody>
+    </table>
+    <p>Aucun malus, une pression offensive largement suffisante, et surtout un cosmos qui se recharge assez vite pour spammer les spéciales. C'est le build à utiliser pour les longues sessions : il ne pardonne pas moins les erreurs, il les rend simplement sans conséquence.</p>
+  </div>
+
+  <div class="card">
+    <h3>Le personnage : Camus en armure divine</h3>
+    <p>Combiné à ce build, il nettoie la Bataille d'Or plus vite que les alternatives. La boucle est simple : <strong>spam de spéciale en R2 + triangle</strong>, complétée par les attaques puissantes.</p>
+    <h3 style="margin-top:18px">Deux techniques qui changent tout</h3>
+    <ul>
+      <li><strong>Saut puis attaque puissante</strong> : l'animation sort nettement plus vite que depuis le sol.</li>
+      <li><strong>Premier carré du combo, puis attaque puissante</strong> : même effet d'accélération, en restant au sol. Utile quand l'adversaire est déjà collé à vous.</li>
+    </ul>
+    <p>Ces deux enchaînements réduisent la fenêtre pendant laquelle vous êtes vulnérable, ce qui compte plus que le chiffre de dégâts brut sur des centaines de combats.</p>
+    <p class="note">Hadès et Athéna font aussi le travail avec ce build, mais plus lentement.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>Build « speedrun » — risqué</h3>
+    <table>
+      <thead><tr><th>Réplique</th><th>Coût</th></tr></thead>
+      <tbody>
+        <tr><td>Dégâts +40 % (vie réduite)</td><td class="mono">3 emplacements</td></tr>
+        <tr><td>Dégâts +30 % (vie réduite)</td><td class="mono">2 emplacements</td></tr>
+        <tr><td>Dégâts des attaques puissantes +30 %</td><td class="mono">3 emplacements</td></tr>
+      </tbody>
+    </table>
+    <p>On dépasse les +100 % de dégâts, les adversaires fondent — mais votre barre de vie est amputée d'autant, et une seule erreur relance tout un run. <strong>À réserver aux tentatives de rang S sur un combat précis</strong>, jamais au farm de plusieurs heures : sur la durée, un run perdu coûte plus cher que le temps gagné sur dix combats.</p>
+  </div>
+</section>
+
+<section id="bataille">
+  <div class="shead"><span class="glyph">♏</span><h2>Bataille d'Or : la roue normale en S</h2><span class="num">ÉTAPE 08</span></div>
+  <p class="intro">Avant de toucher au mode Another, terminez intégralement la première roue en rang S. Ce n'est pas qu'une question de trophée : une partie des répliques d'assistance est attachée à des combats précis de cette roue, et rien dans le jeu ne vous signale lesquels.</p>
+  <div class="card">
+    <h3>Le contrôle visuel</h3>
+    <p>Sur l'écran de l'horloge, <strong>toutes les flammes doivent être allumées en bleu</strong>. Parcourez ensuite chaque maison pour vérifier qu'aucun combat ne reste en retrait, combats supplémentaires compris. Une seule maison incomplète et vous farmerez plus tard dans le vide en cherchant une réplique qui n'était pas dans le pool aléatoire.</p>
+    <p>C'est aussi ce passage qui débloque le mode <strong>Another</strong>, la seconde roue, où se joue toute la fin du platine.</p>
+  </div>
+</section>
+
+<section id="another">
+  <div class="shead"><span class="glyph">♐</span><h2>Another : le farm des répliques</h2><span class="num">ÉTAPE 09</span></div>
+  <p class="intro">Le trophée <em>Je peux les entendre… leurs voix, qui m'encouragent !</em> (179 répliques) est le seul vrai grind du platine. Voici comment le raccourcir — et une mécanique que les guides existants n'ont jamais formulée.</p>
+
+  <div class="card">
+    <h3>La boucle de base</h3>
+    <p>Atteignez le boss <strong>le plus vite possible : entre le 3<sup>e</sup> et le 6<sup>e</sup> combat</strong>. Ramassez les coffres <strong>uniquement s'ils sont sur votre trajectoire</strong> — un détour d'un combat pour un coffre coûte plus qu'il ne rapporte, puisque son contenu est aléatoire (réplique, points ou bonus). Puis on recommence. Un run propre tourne autour de cinq à six minutes.</p>
+  </div>
+
+  <div class="card find">
+    <h3>Le palier de boss : la découverte</h3>
+    <p>La valeur en points du boss dépend du nombre de combats faits avant de l'atteindre :</p>
+    <table>
+      <thead><tr><th>Combats avant le boss</th><th>Points de base</th></tr></thead>
+      <tbody>
+        <tr><td>3 à 6</td><td class="mono">10 000</td></tr>
+        <tr><td>7 à 10</td><td class="mono">5 000</td></tr>
+        <tr><td>11 à 14</td><td class="mono">2 500</td></tr>
+      </tbody>
+    </table>
+    <p>Et le point que personne ne mentionne : <strong>certaines répliques ne semblent tomber que sur un palier donné</strong>. Constaté en conditions réelles — quatre répliques manquantes, plusieurs heures de runs courts (boss à 10 000) sans le moindre drop, puis passage à des runs de sept combats et plus (boss à 5 000) : les quatre sont tombées <strong>coup sur coup en quatre runs</strong>.</p>
+    <p>La méthode qui en découle : farmez en runs courts par défaut, c'est le meilleur rendement. Mais <strong>dès que vous enchaînez environ cinq runs sans aucune réplique, basculez sur des runs de sept combats ou plus</strong>. Et si le blocage revient, rebasculez. Ce simple aller-retour peut vous épargner plusieurs heures.</p>
+  </div>
+
+  <div class="card warn">
+    <h3>Le mythe des trois coffres</h3>
+    <p>On lit souvent qu'une case portant trois coffres garantit une réplique, contrairement aux cases à deux coffres. <strong>C'est faux</strong>, vérifié en jeu : des répliques tombent de cases à deux coffres, et une case à trois coffres peut ne rien donner du tout. Le contenu est aléatoire, point. N'organisez pas votre trajet autour de ce critère.</p>
+  </div>
+
+  <p class="note">Autre observation utile : les combats intermédiaires ne donnent rien par eux-mêmes. Les seules sources de répliques sont les coffres et la récompense de boss — ce qui simplifie la question : ne visez que ces deux-là.</p>
+</section>
+
+<section id="boutique2">
+  <div class="shead"><span class="glyph">♑</span><h2>Vider la boutique</h2><span class="num">ÉTAPE 10</span></div>
+  <p class="intro">Le farm de la Bataille d'Or laisse généralement plusieurs millions de points en réserve. Le moment est venu de tout dépenser.</p>
+  <div class="card">
+    <h3>Ratissez chaque catégorie</h3>
+    <p>Modèles de personnages, illustrations, musiques, cinématiques, répliques encore disponibles à l'achat : passez les onglets un par un avec les gâchettes, sans laisser une seule ligne. Le compteur de la galerie doit grimper, mais il ne montera pas à 100 % tout de suite — il reste les vidéos d'attaques Big Bang, qui ne s'achètent pas.</p>
+  </div>
+</section>
+
+<section id="bigbang">
+  <div class="shead"><span class="glyph">♒</span><h2>Les attaques Big Bang</h2><span class="num">ÉTAPE 11</span></div>
+  <p class="intro">Dernière étape, et deuxième grand malentendu du jeu. Elle ne demande aucune difficulté, juste de la rigueur.</p>
+
+  <div class="card warn">
+    <h3>Comment le trophée fonctionne réellement</h3>
+    <p>Le trophée <em>J'ai déjà vu toutes tes attaques !</em> ne se valide pas en <strong>regardant</strong> les vidéos dans la galerie. Une vidéo s'obtient uniquement en <strong>exécutant l'attaque en combat</strong>. Le message <em>« l'ABB … est maintenant consultable »</em> s'affiche en fin de combat pour confirmer chaque déblocage — et il n'est pas nécessaire de gagner le combat.</p>
+  </div>
+
+  <div class="card find">
+    <h3>La règle des doublons — ce qui divise le travail par trois</h3>
+    <ul>
+      <li>Une attaque exécutée une seule fois est validée <strong>pour toutes les variantes du même personnage</strong>. La Comète de Pégase lancée avec n'importe quel Seiya compte pour tous les Seiya : Bronze, Sagittaire, Odin, armure divine.</li>
+      <li>En revanche, une attaque portant le même nom chez <strong>deux personnages différents</strong> compte deux fois. L'Excalibur de Shiryu et celle de Shura sont deux vidéos distinctes.</li>
+      <li>Conséquence directe : prenez systématiquement la <strong>version en armure divine</strong> quand elle existe. Elle possède toutes les attaques de base <em>plus</em> l'exclusive divine, donc un seul combat suffit à tout valider pour ce personnage.</li>
+      <li>Attention aux entrées considérées comme des personnages séparés : <strong>Saga en Grand Pope</strong>, <strong>Kanon des Gémeaux</strong> et <strong>Kanon Dragon des Mers</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="card tip">
+    <h3>La méthode d'exécution</h3>
+    <p>Mode Combat contre l'ordinateur, <strong>règle du Septième Sens activée</strong> et <strong>vie de l'adversaire réglée à 25 %</strong>. Vous démarrez avec la jauge disponible, vous lancez l'attaque en R2 + rond, vous validez, vous passez au suivant. Pour les personnages qui possèdent plusieurs attaques, laissez le combat courir et enchaînez-les toutes dans la même manche plutôt que de relancer à chaque fois.</p>
+    <p><strong>Avant de commencer, ouvrez la galerie</strong> et relevez ce qui est déjà débloqué : après un parcours complet de l'histoire, la moitié de la liste est généralement acquise. La checklist ci-dessous est faite pour ça.</p>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="shead"><span class="glyph">♓</span><h2>Checklist : toutes les attaques, sans doublon</h2><span class="num">ANNEXE</span></div>
+  <p class="intro">La liste complète déjà dédoublonnée selon la règle des variantes : chaque ligne correspond à <strong>une vidéo à obtenir</strong>, et chaque personnage à un ou deux combats maximum. Cochez ce que votre galerie possède déjà — le compteur de chaque fiche vous indique ce qu'il reste à faire. Votre progression est conservée sur cet appareil.</p>
+
+  <div class="bbctl">
+    <b id="bbcount">0 / 0</b><span>validées</span>
+    <span id="bbleft" style="color:var(--gold-bright)"></span>
+    <button id="bbreset" type="button">Tout décocher</button>
+  </div>
+  <div class="bbgrid" id="bbgrid">
+    <!-- rempli par le script à partir des données ci-dessous -->
+  </div>
+</section>
+
+<section id="points">
+  <div class="shead"><span class="glyph">♈</span><h2>S'il manque des points</h2><span class="num">ÉTAPE 12</span></div>
+  <p class="intro">Cas peu probable après un farm complet de la Bataille d'Or, mais la solution existe.</p>
+  <div class="card">
+    <h3>Le farm express</h3>
+    <p>Combat contre l'ordinateur avec la <strong>règle de la première touche</strong> : le combat se termine au premier coup porté. Quelques secondes par manche, relancées en boucle, remontent le compteur sans effort. À utiliser uniquement pour compléter un achat manquant en fin de parcours.</p>
+  </div>
+</section>
+
+<section id="recap">
+  <div class="shead"><span class="glyph">☉</span><h2>Récapitulatif des pièges</h2><span class="num">MÉMO</span></div>
+  <table>
+    <thead><tr><th>Piège</th><th>Ce qu'il faut faire</th></tr></thead>
+    <tbody>
+      <tr><td>Le didacticiel semble validé après une leçon</td><td>Terminer <strong>toutes</strong> les leçons pour débloquer les tenues d'entraînement de Seiya et Marine</td></tr>
+      <tr><td>Deux <code>?????</code> bloqués en boutique</td><td>Même cause : didacticiel incomplet</td></tr>
+      <tr><td>Rang S visé trop tard</td><td>Viser le S dès le premier passage de chaque combat</td></tr>
+      <tr><td>Farm lancé sans équipement</td><td>Acheter les répliques offensives avant la Bataille d'Or</td></tr>
+      <tr><td>Blocage sur les dernières répliques</td><td>Changer de palier de boss : runs de 7 combats et plus après ~5 runs secs</td></tr>
+      <tr><td>Cases à trois coffres privilégiées</td><td>Aucune garantie, ne pas faire de détour pour elles</td></tr>
+      <tr><td>Vidéos Big Bang regardées en galerie</td><td>Il faut <strong>exécuter</strong> les attaques en combat</td></tr>
+      <tr><td>Toutes les variantes refaites une par une</td><td>Une attaque validée compte pour toutes les versions du personnage</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <div class="zsign">♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</div>
+  <p>Guide rédigé à partir d'un platine obtenu en 26 heures. Les mécaniques de palier de boss et de déblocage des tenues d'entraînement ont été vérifiées en jeu, pas reprises d'un guide existant.<br>Corrections et retours bienvenus : ouvrez une issue sur le dépôt.</p>
+</footer>
+
+<script>
+const BB = [
+ ["Chevaliers de Bronze",[
+  ["Seiya","base : Pégase",["Météores de Pégase","Comète de Pégase","Tourbillon de Pégase","Flèche du Sagittaire — version Sagittaire","Épée Balmung — armure d'Odin","Comète de Pégase Ultime — armure divine"]],
+  ["Shiryu","base : Dragon ou Balance",["Envol du Dragon","Vol du Dragon","Dragon Ascendant","Excalibur","Cent Dragons suprêmes de Rozan","Envol du Dragon véritable — armure divine"]],
+  ["Hyoga","base : Cygne ou Verseau",["Poussière de Diamant","Tonnerre de l'Aube","Exécution de l'Aurore","Poussière de Diamant véritable — armure divine"]],
+  ["Shun","base : Andromède ou Vierge",["Chaîne nébulaire","Vague de Tonnerre","Tornade Nébulaire","Tempête Nébulaire","Vague de Tonnerre véritable — armure divine"]],
+  ["Ikki","base : Phénix ou Lion",["Ailes du Phénix","Illusion du Phénix","Ailes du Phénix véritables — armure divine"]],
+  ["Jabu","",["Galop de la Licorne"]],
+  ["Ichi","",["Griffe de l'Hydre"]]
+ ]],
+ ["Chevaliers d'Argent et Athéna",[
+  ["Marine","",["Météores","Aigle Foudroyant"]],
+  ["Shina","",["Griffes du Tonnerre"]],
+  ["Orphée","",["Son de corde final"]],
+  ["Athéna","",["Bâton d'Athéna"]]
+ ]],
+ ["Chevaliers d'Or",[
+  ["Sion","",["Spirale Stellaire","Mur de Cristal"]],
+  ["Mû","",["Spirale stellaire","Mort d'une étoile","Mort d'une étoile divine — armure divine"]],
+  ["Aldébaran","",["Corne du Taureau","Corne du Taureau Divine — armure divine"]],
+  ["Saga","Grand Pope = entrée séparée",["Une autre dimension — Grand Pope","Une autre Dimension","Explosion Galactique","Explosion Galactique Divine — armure divine"]],
+  ["Kanon des Gémeaux","",["Triangle doré"]],
+  ["Masque de Mort","",["Cercles d'Hadès","Cercles d'Hadès Divins — armure divine"]],
+  ["Aiolia","",["Éclair Foudroyant","Plasma Foudroyant","Plasma Foudroyant Divin — armure divine"]],
+  ["Shaka","",["Châtiment du Ciel","Métempsycose","Trésor du ciel","Trésor du ciel divin — armure divine"]],
+  ["Dohko","",["Cent Dragons Suprêmes de Rozan","Cent Dragons Suprêmes Divins — armure divine"]],
+  ["Milo","",["Aiguille écarlate","Antarès","Aiguille d'Antarès Divine — armure divine"]],
+  ["Aioros","",["Flèche du Sagittaire","Tonnerre Atomique","Tonnerre Atomique Divin — armure divine"]],
+  ["Shura","",["Excalibur","Coup de pied du Capricorne","Excalibur Divine — armure divine"]],
+  ["Camus","",["Poussière de Diamant","Cercueil de Glace","Exécution de l'Aurore","Exécution de l'Aurore Divine — armure divine"]],
+  ["Aphrodite","",["Rose démoniaque","Rose Piranha","Rose sanguinaire","Rose Sanguinaire Divine — armure divine"]]
+ ]],
+ ["Marinas",[
+  ["Kanon Dragon des Mers","entrée séparée",["Triangle d'Or"]],
+  ["Sorrento","",["Symphonie de la mort","Point d'orgue final"]],
+  ["Baian","",["Lames de fond"]],
+  ["Io","",["Tornade de Scylla"]],
+  ["Kaasa","",["Coup de la Salamandre"]],
+  ["Isaac","",["Aurore Boréale"]],
+  ["Krishna","",["Maha Roshin"]],
+  ["Poséidon","",["Lance de Poséidon"]]
+ ]],
+ ["Guerriers Divins d'Asgard",[
+  ["Thor","",["Titanique Hercule"]],
+  ["Fenrir","",["Poing de la meute du nord"]],
+  ["Hagen","",["Fureur du volcan"]],
+  ["Mime","",["Requiem"]],
+  ["Albérich","",["Esprits de la nature"]],
+  ["Syd","",["Impulsion bleue"]],
+  ["Bud","",["Griffe du Tigre Noir"]],
+  ["Siegfried","",["Blizzard du Dragon indomptable"]],
+  ["Hilda","",["Anneau des Nibelungen"]]
+ ]],
+ ["Spectres et Dieux",[
+  ["Eaque","",["Illusion galactique"]],
+  ["Rhadamanthe","",["Éveil maximal"]],
+  ["Minos","",["Manipulation cosmique"]],
+  ["Hypnos","",["Somnolence éternelle"]],
+  ["Thanatos","",["Terrible providence"]],
+  ["Hadès","",["Ultime Éclipse"]]
+ ]]
+];
+
+const grid = document.getElementById('bbgrid');
+let html = '';
+BB.forEach(([famille, persos])=>{
+  html += '<div style="grid-column:1/-1;font-family:Cinzel,serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin:14px 0 2px">'+famille+'</div>';
+  persos.forEach(([nom, note, atks])=>{
+    html += '<div class="pers"><div class="ph"><b>'+nom+'</b><i>0</i></div>';
+    if(note) html += '<div class="note" style="font-size:12px;margin:-4px 0 6px">'+note+'</div>';
+    atks.forEach(a=>{
+      const id = 'bb_'+btoa(unescape(encodeURIComponent(nom+'|'+a))).replace(/=/g,'');
+      html += '<label><input type="checkbox" id="'+id+'"><span>'+a+'</span></label>';
+    });
+    html += '</div>';
+  });
+});
+grid.innerHTML = html;
+
+const boxes = [...grid.querySelectorAll('input')];
+const total = boxes.length;
+const cnt = document.getElementById('bbcount');
+const left = document.getElementById('bbleft');
+
+function save(){
+  try{
+    localStorage.setItem('ss_bb', JSON.stringify(boxes.filter(b=>b.checked).map(b=>b.id)));
+  }catch(e){/* stockage indisponible : la page marche quand même */}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem('ss_bb');
+    if(!raw) return;
+    const done = new Set(JSON.parse(raw));
+    boxes.forEach(b=>{ if(done.has(b.id)) b.checked = true; });
+  }catch(e){}
+}
+function refresh(){
+  const done = boxes.filter(b=>b.checked).length;
+  cnt.textContent = done + ' / ' + total;
+  left.textContent = (total-done) + ' restantes';
+  grid.querySelectorAll('.pers').forEach(p=>{
+    const bs = [...p.querySelectorAll('input')];
+    const r = bs.filter(b=>!b.checked).length;
+    const tag = p.querySelector('.ph i');
+    tag.textContent = r===0 ? 'terminé' : r + (r>1?' restantes':' restante');
+    tag.className = r===0 ? 'done' : '';
+  });
+}
+boxes.forEach(b=>b.addEventListener('change',()=>{refresh();save();}));
+document.getElementById('bbreset').addEventListener('click',()=>{
+  boxes.forEach(b=>b.checked=false); refresh(); save();
+});
+load(); refresh();
+</script>
+</body>
+</html>
